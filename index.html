@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Royal Connect Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE  occasion: a warm, trustworthy local service business website
+   IDEA   the "While You Were Out" message pad: every call turned into a clear message slip
+   PICTURE a stack of message slips (pink, canary, white) from after-hours calls, with a ringing handset
+   COLOUR royal plum #2b1857 ground, slip pink #ffc9da, canary #ffe680, gold accent #f5b800, white
+   TYPE   Archivo 800 display + Archivo text
+   LAYOUT laptop: title and actions left over the plum band, slip stack right; phone: title, slips, buttons */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#130b26);--ink:light-dark(#1b1430,#f3eefc);--soft:light-dark(#5d5470,#c4bad8);--plum:#2b1857;--plum2:light-dark(#f4effc,#1d1240);--line:light-dark(#e3dcef,#33275a);--gold:#f5b800;--pink:#ffc9da;--canary:#ffe680;--card:light-dark(#ffffff,#1a1036)}
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Archivo,system-ui,sans-serif;overflow-x:clip}
+a{color:inherit}
+img{max-width:100%}
+.wrap{max-width:1240px;margin:0 auto}
+.band{padding-block:clamp(40px,5vw,80px);padding-left:max(5vw,16px);padding-right:max(5vw,16px)}
+h1,h2,h3{line-height:1.05;letter-spacing:-.02em;margin:0;text-wrap:balance}
+h1{font-size:clamp(36px,5.2vw,58px);font-weight:800}
+h2{font-size:clamp(30px,3.6vw,44px);font-weight:800}
+h3{font-size:20px;font-weight:700}
+p{margin:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:999px;font:600 16px Archivo,sans-serif;text-decoration:none;border:2px solid transparent;cursor:pointer}
+.btn.gold{background:var(--gold);color:#1b1430}
+.btn.gold:hover{background:#ffcb2e}
+.btn.ghost{border-color:rgba(255,255,255,.55);color:#fff}
+.btn.ghost:hover{background:rgba(255,255,255,.1)}
+.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+nav{position:sticky;top:0;z-index:10;background:var(--plum);color:#fff;padding:12px max(5vw,16px)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px 24px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;text-decoration:none;color:#fff}
+.logo svg{width:34px;height:34px;flex:none}
+.links{display:flex;gap:6px 22px;flex-wrap:wrap;align-items:center;font-weight:500}
+.links a{text-decoration:none;opacity:.88}
+.links a:hover{opacity:1;text-decoration:underline}
+.hero{background:var(--plum);color:#fff}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(28px,4vw,56px);align-items:center}
+.hero p.lead{font-size:18px;color:#e2d9f6;margin:18px 0 26px;max-width:34em}
+.acts{display:flex;gap:12px;flex-wrap:wrap}
+.facts{display:flex;gap:10px 28px;flex-wrap:wrap;margin-top:28px;color:#e2d9f6;font-size:15px}
+.facts b{display:block;color:#fff;font-size:22px}
+.pad{position:relative;min-height:440px}
+.slip{position:absolute;width:min(78%,360px);border-radius:6px;padding:16px 18px 18px;color:#24183f;box-shadow:0 2px 0 rgba(0,0,0,.12),0 14px 28px rgba(10,4,30,.35)}
+.slip h4{margin:0 0 8px;font-size:17px;font-weight:800;border-bottom:2px solid currentColor;padding-bottom:6px;display:flex;justify-content:space-between;gap:8px}
+.slip h4 span{font-weight:600;white-space:nowrap}
+.slip dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 10px;margin:0;font-size:14px}
+.slip dt{font-weight:700}
+.slip dd{margin:0}
+.slip .msg{margin-top:10px;font-size:15px;border-top:1px dashed rgba(36,24,63,.4);padding-top:8px}
+.slip .chk{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;font-size:13px;font-weight:600}
+.s1{background:#fff;left:2%;top:6%;transform:rotate(-6deg)}
+.s2{background:var(--canary);left:20%;top:24%;transform:rotate(3deg)}
+.s3{background:var(--pink);left:8%;top:47%;transform:rotate(-2deg)}
+.ring{position:absolute;right:0;top:0;width:118px;height:118px}
+.ring .arc{animation:pulse 1.6s ease-out infinite;transform-origin:60px 60px}
+.ring .arc:nth-of-type(2){animation-delay:.3s}
+@keyframes pulse{0%{opacity:0}30%{opacity:1}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.ring .arc{animation:none}html{scroll-behavior:auto}}
+.note{font-size:13px;color:#cbbfe8;margin-top:10px}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:32px}
+.step{border-top:4px solid var(--plum);padding-top:16px}
+:root[data-theme=dark] .step{border-color:var(--gold)}
+.step .n{font-weight:800;font-size:40px;color:var(--gold);line-height:1}
+.step p{color:var(--soft);margin-top:8px}
+.services{background:var(--plum2)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:32px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+.card svg{width:40px;height:40px;margin-bottom:12px}
+.card p{color:var(--soft);margin-top:8px}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,4vw,56px);align-items:start}
+.who{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.who span{background:var(--plum2);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-weight:600}
+.intro{color:var(--soft);margin-top:14px;max-width:36em}
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:32px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.plan.top{border:2px solid var(--gold)}
+.price{font-size:40px;font-weight:800;white-space:nowrap}
+.price small{font-size:16px;font-weight:500;color:var(--soft)}
+.plan ul{margin:6px 0 0;padding-left:20px;color:var(--soft)}
+.plan li{margin:4px 0}
+.tag{align-self:start;background:var(--gold);color:#1b1430;font-size:13px;font-weight:700;border-radius:999px;padding:3px 10px}
+.small{font-size:13px;color:var(--soft);margin-top:14px}
+details{border-bottom:1px solid var(--line);padding:16px 0}
+summary{font-weight:700;font-size:18px;cursor:pointer;min-height:28px}
+details p{color:var(--soft);margin-top:10px}
+.contact{background:var(--plum);color:#fff}
+.contact .intro{color:#e2d9f6}
+form{background:#fff;color:#1b1430;border-radius:16px;padding:24px;display:grid;gap:14px}
+label{display:block;font-weight:600;font-size:15px;margin-bottom:6px}
+input,select,textarea{width:100%;font:16px Archivo,sans-serif;padding:12px 14px;border:1.5px solid #cfc5e3;border-radius:10px;background:#fff;color:#1b1430;min-height:48px}
+textarea{min-height:110px;resize:vertical}
+.row2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.done{background:#e9fbef;color:#14532d;border-radius:10px;padding:14px;font-weight:600}
+.reach{margin-top:26px;display:grid;gap:14px;font-size:17px}
+.reach b{display:block;font-size:14px;color:#cbbfe8;font-weight:500}
+footer{background:#1a0e38;color:#cbbfe8;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px 32px;flex-wrap:wrap}
+footer b{color:#fff}
+@media(max-width:900px){.grid,.plans{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+@media(max-width:760px){.hero .wrap,.split{grid-template-columns:minmax(0,1fr)}.pad{min-height:420px}}
+@media(max-width:600px){.steps,.grid,.plans,.row2{grid-template-columns:minmax(0,1fr)}.links{font-size:15px;gap:4px 16px}.slip{width:86%}.s2{left:12%}.ring{width:84px;height:84px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Royal Connect Solutions home">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#f5b800"/><path d="M10 15l5 5 5-8 5 8 5-5-2 13H12z" fill="#2b1857"/><rect x="12" y="29" width="16" height="3" rx="1" fill="#2b1857"/></svg>
+      Royal Connect Solutions
+    </a>
+    <div class="links">
+      <a href="#how">How it works</a>
+      <a href="#services">Services</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn gold" href="#contact" style="min-height:40px;padding:0 16px">Get started</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero band" id="top">
+  <div class="wrap">
+    <div>
+      <h1>Every call answered, even when you can't pick up.</h1>
+      <p class="lead">Royal Connect Solutions answers your business phone after hours, during busy rushes, and whenever your team is away. A friendly, professional person greets every caller by your business name, takes the message, and sends it to you right away.</p>
+      <div class="acts">
+        <a class="btn gold" href="#contact">Get a free quote</a>
+        <a class="btn ghost" href="#how">See how it works</a>
+      </div>
+      <div class="facts">
+        <div><b>After hours</b>evenings, weekends, holidays</div>
+        <div><b>Overflow</b>when your lines are busy</div>
+        <div><b>Port St. Lucie, FL</b>locally owned</div>
+      </div>
+    </div>
+    <div>
+      <div class="pad" aria-label="Example call messages">
+        <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="60" cy="60" r="34" fill="#f5b800"/>
+          <path d="M47 46c3-3 6-3 8 0l4 6c1 2 1 4-1 6l-3 2c2 5 6 9 11 11l2-3c2-2 4-2 6-1l6 4c3 2 3 5 0 8l-3 3c-4 4-12 2-21-7s-11-17-7-21z" fill="#2b1857"/>
+          <path class="arc" d="M82 30a40 40 0 0 1 10 16" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path class="arc" d="M88 20a52 52 0 0 1 14 24" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>
+        </svg>
+        <div class="slip s1">
+          <h4>While you were out <span>7:48 PM</span></h4>
+          <dl><dt>For</dt><dd>Sunshine Plumbing</dd><dt>From</dt><dd>Maria T.</dd><dt>Phone</dt><dd>(772) 555-0186</dd></dl>
+          <p class="msg">Water heater leaking in garage. Please call back first thing tomorrow.</p>
+        </div>
+        <div class="slip s2">
+          <h4>While you were out <span>12:15 PM</span></h4>
+          <dl><dt>For</dt><dd>Bella Nails &amp; Spa</dd><dt>From</dt><dd>Keisha R.</dd><dt>Phone</dt><dd>(772) 555-0123</dd></dl>
+          <p class="msg">Booked a pedicure for Friday at 3:00 PM. Confirmation text sent.</p>
+          <div class="chk"><span>&#10003; Appointment set</span><span>&#10003; Texted to owner</span></div>
+        </div>
+        <div class="slip s3">
+          <h4>While you were out <span>Sat 9:02 AM</span></h4>
+          <dl><dt>For</dt><dd>Coastal Realty Group</dd><dt>From</dt><dd>David M.</dd><dt>Phone</dt><dd>(772) 555-0164</dd></dl>
+          <p class="msg">Wants to see the 3-bedroom on Prima Vista this weekend.</p>
+          <div class="chk"><span>&#10003; Urgent</span><span>&#10003; Emailed to agent</span></div>
+        </div>
+      </div>
+      <p class="note">Sample messages for illustration.</p>
+    </div>
+  </div>
+</header>
+
+<section class="band" id="how">
+  <div class="wrap">
+    <h2>Up and running in three simple steps</h2>
+    <p class="intro">No new equipment, no contracts to decode. You keep your number and we pick up when you can't.</p>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Tell us about your business</h3><p>We learn your hours, services, and how you want calls handled, then write a custom greeting and script.</p></div>
+      <div class="step"><div class="n">2</div><h3>Forward your calls</h3><p>Set your phone to forward after hours, when busy, or when no one answers. We'll walk you through it in a few minutes.</p></div>
+      <div class="step"><div class="n">3</div><h3>Get every message fast</h3><p>We answer in your business name and send each message by text or email. Urgent calls get passed to you right away.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band services" id="services">
+  <div class="wrap">
+    <h2>What we handle for you</h2>
+    <div class="grid">
+      <div class="card"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#2b1857"/><path d="M20 10v10l7 4" stroke="#f5b800" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg><h3>After-hours answering</h3><p>Nights, weekends, and holidays, callers reach a real person instead of voicemail.</p></div>
+      <div class="card"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="3" y="8" width="20" height="26" rx="4" fill="#2b1857"/><rect x="17" y="6" width="20" height="26" rx="4" fill="#f5b800"/></svg><h3>Overflow calls</h3><p>When your lines are full or you're with a customer, we catch the calls that would go unanswered.</p></div>
+      <div class="card"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="8" width="30" height="27" rx="4" fill="#2b1857"/><rect x="5" y="8" width="30" height="8" rx="3" fill="#f5b800"/><circle cx="14" cy="24" r="3" fill="#f5b800"/></svg><h3>Appointment scheduling</h3><p>We book, confirm, and reschedule using your calendar and your rules.</p></div>
+      <div class="card"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="7" y="5" width="26" height="30" rx="3" fill="#ffc9da"/><path d="M12 14h16M12 20h16M12 26h10" stroke="#2b1857" stroke-width="3" stroke-linecap="round"/></svg><h3>Message taking</h3><p>Clear, complete messages with name, number, and reason for the call, sent the way you prefer.</p></div>
+      <div class="card"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="14" cy="15" r="6" fill="#2b1857"/><circle cx="27" cy="15" r="6" fill="#f5b800"/><path d="M4 34c1-7 5-11 10-11s9 4 10 11zM17 34c1-7 5-11 10-11s9 4 10 11z" fill="#2b1857"/></svg><h3>Small call center</h3><p>Customer service lines, order lines, and event or campaign call support for growing businesses.</p></div>
+      <div class="card"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 4l14 6v9c0 9-6 15-14 17-8-2-14-8-14-17v-9z" fill="#2b1857"/><path d="M14 20l4 4 8-8" stroke="#f5b800" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg><h3>Lunch &amp; vacation coverage</h3><p>Step away without missing a beat. Book coverage for an hour, a day, or a whole week.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap split">
+    <div>
+      <h2>Built for small businesses that can't afford to miss a call</h2>
+      <p class="intro">A missed call is often a missed customer. Most callers who reach voicemail simply call the next business on the list. We make sure they reach someone who represents you well.</p>
+    </div>
+    <div>
+      <h3>Who we help</h3>
+      <div class="who">
+        <span>Home service pros</span><span>Plumbers &amp; HVAC</span><span>Salons &amp; spas</span><span>Real estate agents</span><span>Law offices</span><span>Churches &amp; ministries</span><span>Contractors</span><span>Small offices</span><span>Online shops</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band services" id="pricing">
+  <div class="wrap">
+    <h2>Simple monthly plans, no surprises</h2>
+    <p class="intro">Every plan includes a custom greeting in your business name, message delivery by text or email, and a local point of contact. No setup fee, no long-term contract.</p>
+    <div class="plans">
+      <div class="plan"><h3>Starter</h3><div class="price">$149<small> / month</small></div><p>Up to 50 calls</p><ul><li>After-hours answering</li><li>Message taking</li><li>Text or email delivery</li><li>Extra calls $3.25 each</li></ul></div>
+      <div class="plan top"><span class="tag">Most popular</span><h3>Business</h3><div class="price">$279<small> / month</small></div><p>Up to 125 calls</p><ul><li>Everything in Starter</li><li>Overflow answering</li><li>Appointment scheduling</li><li>Urgent call transfers</li><li>Extra calls $2.75 each</li></ul></div>
+      <div class="plan"><h3>Pro</h3><div class="price">$449<small> / month</small></div><p>Up to 250 calls</p><ul><li>Everything in Business</li><li>Custom call scripts</li><li>Weekly call reports</li><li>Priority setup and support</li><li>Extra calls $2.50 each</li></ul></div>
+    </div>
+    <p class="small">A call is any answered call up to 5 minutes. Need a full call center line or more than 250 calls? <a href="#contact">Ask for a custom quote.</a></p>
+  </div>
+</section>
+
+<section class="band" id="faq">
+  <div class="wrap split">
+    <div>
+      <h2>Questions business owners ask</h2>
+      <p class="intro">Don't see your question? Call or send a message and we'll answer it personally.</p>
+    </div>
+    <div>
+      <details open><summary>Do I need to change my phone number?</summary><p>No. You keep your number and simply forward calls to us when you want coverage.</p></details>
+      <details><summary>Will callers know you're an answering service?</summary><p>We answer in your business name using the greeting you approve, so callers have a smooth, professional experience.</p></details>
+      <details><summary>How do I get my messages?</summary><p>By text, email, or both, right after each call. Urgent calls can be transferred to you directly.</p></details>
+      <details><summary>Is there a long-term contract?</summary><p>Plans are month to month. Adjust or cancel when your needs change.</p></details>
+      <details><summary>How fast can I start?</summary><p>Most businesses are set up within a few days after a short call to learn how you want things handled.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="band contact" id="contact">
+  <div class="wrap split">
+    <div>
+      <h2>Let's make sure you never miss another call</h2>
+      <p class="intro">Tell us a little about your business and we'll reach out with a free quote, usually within one business day.</p>
+      <div class="reach">
+        <div><b>Phone</b><a href="tel:+17722070647">(772) 207-0647</a></div>
+        <div><b>Email</b><a href="mailto:hello@royalconnectsolutions.com">hello@royalconnectsolutions.com</a></div>
+        <div><b>Service area</b>Port St. Lucie and businesses across Florida</div>
+      </div>
+    </div>
+    <form id="quote" novalidate>
+      <div class="row2">
+        <div><label for="fname">Your name</label><input id="fname" autocomplete="name" required></div>
+        <div><label for="biz">Business name</label><input id="biz" autocomplete="organization" required></div>
+      </div>
+      <div class="row2">
+        <div><label for="phone">Phone</label><input id="phone" type="tel" autocomplete="tel" required></div>
+        <div><label for="email">Email</label><input id="email" type="email" autocomplete="email" required></div>
+      </div>
+      <div><label for="need">What do you need?</label>
+        <select id="need"><option>After-hours answering</option><option>Overflow calls</option><option>Appointment scheduling</option><option>Call center support</option><option>Not sure yet</option></select>
+      </div>
+      <div><label for="msg">Anything else we should know?</label><textarea id="msg"></textarea></div>
+      <button class="btn gold" type="submit">Request my free quote</button>
+      <div id="done" class="done" hidden>Thank you! This form is a preview. Once the site is live, requests will go straight to your inbox.</div>
+    </form>
+  </div>
+</section>
+
+<footer class="band" style="padding-block:28px">
+  <div class="wrap">
+    <div><b>Royal Connect Solutions LLC</b><br>Telephone answering and call support for businesses<br>Port St. Lucie, Florida &middot; (772) 207-0647 &middot; hello@royalconnectsolutions.com</div>
+    <div>&copy; <span id="yr">2026</span> Royal Connect Solutions LLC. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+{
+  const f = document.getElementById('quote');
+  const done = document.getElementById('done');
+  f.addEventListener('submit', e => {
+    e.preventDefault();
+    const bad = [...f.querySelectorAll('[required]')].find(i => !i.value.trim());
+    if (bad) { bad.focus(); bad.style.borderColor = '#d6127e'; return; }
+    done.hidden = false;
+  });
+  f.addEventListener('input', e => { e.target.style.borderColor = ''; });
+  document.getElementById('yr').textContent = new Date().getFullYear();
+}
+</script>
+</body>
+</html>
